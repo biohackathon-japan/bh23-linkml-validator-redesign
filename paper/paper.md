@@ -1,48 +1,92 @@
 ---
-title: 'BioHackJP 2023 Report R1: linked data standardization with LLMs'
-title_short: 'BioHackJP 2023 LD-LLM'
+title: 'BioHackJP 2023 Report R4: Redesign of the validation framework in LinkML'
+title_short: 'BioHackJP 2023 LinkML Validator Redesign'
 tags:
   - Linked Data
-  - Large Language Models
+  - Link modeling language
+  - Validation
 authors:
-  - name: First Author
-    orcid: 0000-0000-0000-0000
+  - name: Deepak R. Unni
+    orcid: 0000-0002-3583-7340
     affiliation: 1
-  - name: Last Author
-    orcid: 0000-0000-0000-0000
+  - name: Andra Waagmeester
+    orcid: 0000-0001-9773-4008
     affiliation: 2
+  - name: Jose Emilio Labra Gayo
+    orcid: 0000-0001-8907-5348
+    affiliation: 3
 affiliations:
-  - name: First Affiliation
+  - name: SIB Swiss Institute of Bioinformatics, Switzerland
     index: 1
   - name: Second Affiliation
     index: 2
+  - name: Third Affiliation
+    index: 3
 date: 30 June 2023
 cito-bibliography: paper.bib
 event: BH23JP
 biohackathon_name: "BioHackathon Japan 2023"
 biohackathon_url:   "https://2023.biohackathon.org/"
 biohackathon_location: "Kagawa, Japan, 2023"
-group: R1
+group: R4
 # URL to project git repo --- should contain the actual paper.md:
-git_url: https://github.com/biohackathon-jp/bh23-report-template
+git_url: https://github.com/biohackathon-japan/bh23-linkml-validator-redesign
 # This is the short authors description that is used at the
 # bottom of the generated paper (typically the first two authors):
-authors_short: First Author \emph{et al.}
+authors_short: Deepak R. Unni \emph{et al.}
 ---
 
 # Background
 
-The field of bioinformatics plays a crucial role in enabling researchers to extract meaningful insights from the vast amount of biological data generated today. With advancements in technology and the availability of large-scale datasets, it has become increasingly important to develop standardized approaches for representing and integrating biological information. Linked data, a method for publishing structured data on the web, has emerged as a promising solution for facilitating the integration and interoperability of diverse biological data sources.
+LinkML is a data modeling language that can be used to describe the structure and semantics of data from a specific domain. LinkML lets you manage various levels of semantic expressivity, depending on the use-case at hand. As a result, data models expressed in LinkML can be utilized with various (relational and non-relational) data stores.
 
-The BioHackathon 2023, held in Japan, provided an ideal platform for researchers and bioinformatics enthusiasts to collaborate and explore innovative solutions to address the challenges in the field. Our project focused on the application of Linked Data and Large Language Models (LLMs) to standardize biological data and enhance its accessibility and usability.
+There are two parts to the LinkML ecosystem:
+- **the modeling language:** a vocabulary that can be used to define data models
+- **the tooling:** a suite of tools for generating technology-specific artifacts from data models
 
-LLMs, such as OpenAI's GPT-3.5 architecture, have demonstrated remarkable capabilities in understanding and generating human-like text. Leveraging the power of LLMs, we aimed to automate the process of extracting relevant biological terms from unstructured text and mapping them to existing ontology terms. Ontologies, which are hierarchical vocabularies of terms and their semantic relationships, provide a standardized framework for organizing and categorizing biological concepts.
+As with any data ecosystem, there ixs also a need for tools that support validation of data. Currently, the LinkML ecosystem provides a simple validation utility that can be used to validate data against a LinkML schema. But this validation utility makes use of JSON Schema for validating data. While this does cover several validation use-cases, it is still limited in its applicability and scope. Thus, there is a need for a data validation utility that is flexible and can grow organically according to use-cases.
+
+The goal of this project was to improve on LinkML's validation framework by adopting certain design principles:
+
+1. **Schema Agnostic:** The validator must be schema agnostic and must not make any assumptions on the incoming data outside of the scope of LinkML metamodel (i.e. the validator should run for any given LinkML schema).
+2. **Plugin Architecture:** Each type of validation should be its own plugin. This ensures that validation scenarios are atomic, well documented, and can be configured for appropriate use-cases. Plugins can be internal or external, with both types supported.
+3. **Extendable Parsers**: The validator should be able parse various types of data formats and data stores and should be configurable such that the choice of the validator is left to the user with sensible defaults applied where required.
+4. **Easy to Configure:** The plugins, and by extension, the validator should be configurable at runtime such that the plugin and validator behavior can be tweaked for certain inputs or use-cases.
+5. **Parseable Validation Messages:** The validator should return validation results and reports that are concise, easy to parse, and conforms to a well defined structure. Since the validation framework is aware of the LinkML metamodel, it can also make use of the native LinkML validation schema to ensure that the structure of the validation reports are aligned and compatible with the LinkML ecosystem.
+
+Following the aforementioned design principles will ensure flexibility and sustainability of the validation tool. 
 
 # Outcomes
 
-To achieve our objectives, we conducted a comprehensive survey of open source language models available and evaluated their suitability for our task. We explored different models, taking into consideration factors such as performance, computational requirements, and ease of deployment. Subsequently, we sought to run the selected models on a local computer, ensuring that the infrastructure requirements were met.
+## Redesign of the Validation
 
-Having established a working environment for LLMs, we developed a set of pipelines that incorporated various natural language processing techniques to extract relevant biological terms from textual data. These terms were then matched and mapped to the corresponding ontology terms, thereby providing a standardized representation of the extracted information. By utilizing Linked Data principles, we aimed to create an interconnected network of biological knowledge that would facilitate data integration and enable advanced analysis.
+We approach the redesign of the existing LinkML validation tool by implementing the following components:
+- Models
+- Loader
+- Validation Plugins
+- Validator
+
+
+### Models
+
+A set of well defined validation classes that serve as the structure of the validation response
+
+### Loader
+
+For parsing input data and getting it to a state that can then be used by the validation plugins
+
+### Validation Plugins
+
+A plugin that is responsible for running a set of operations on a given input data and is aware of the provided schema
+
+### Validator
+
+A common validation interface for invoking the validator with a given schema, a set of input data and validation plugins
+
+
+![Design](./design.png)
+
+
 
 ![Caption for BioHackrXiv logo figure](./biohackrxiv.png)
 
@@ -50,9 +94,14 @@ Having established a working environment for LLMs, we developed a set of pipelin
 
 Moving forward, there are several areas of potential future work to enhance our project's linked data standardization with LLMs. First, exploring advanced LLMs and optimizing computational efficiency can improve performance. Additionally, expanding ontology mapping to cover more domains and integrating external data sources would increase the scope of our standardization efforts. Validating and evaluating results against gold-standard datasets, involving domain experts, and developing a user-friendly interface for researchers to interact with the pipelines are crucial next steps. These future endeavors will refine and advance our methodology, increasing its impact and adoption in bioinformatics.
 
+
+# Discussion
+
+A flexible framework for performing validation of data against any given LinkML-based schema can have a positive impact on the LinkML community. New (and existing users) can adopt the validation framework and extend it for their needs to ensure data quality, data consistency, and also perform checks that may not be possible (or easy) in the context of Pydantic, JSONSchema, or Shape Expressions. The work highlighted can serve as a useful utility for data integration and validation pipelines that need a reliable way to identify data inconsistencies and report them in a way that is actionable. The work outlined is an addition to the rapidly developing LinkML ecosystem and collectively aims to make schema representation, data representation, and data harmonization easier and manageable - especially in the context of biological and biomedical data.
+
 ## Acknowledgements
 
-We would like to thank the fellow participants at BioHackathon 2023 for their collaboration and constructive advice, which greatly influenced our project. We are grateful to the organizers for providing this platform and the developers of open source language models. Special thanks to our mentors, advisors, and colleagues for their guidance and support. Without their contributions, our project in linked data standardization with LLMs in bioinformatics would not have been possible.
+We would like to thank the fellow participants at BioHackathon 2023 for their collaboration and constructive advice, which greatly influenced our project. We are grateful to the organizers for providing this platform and the developers of open source language models. We are also grateful to the LinkML developers and the wider community for being active, engaged, and constructive with their requirements and feedback.
 
 ## References
 
