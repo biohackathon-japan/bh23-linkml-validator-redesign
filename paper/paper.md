@@ -18,9 +18,9 @@ authors:
 affiliations:
   - name: SIB Swiss Institute of Bioinformatics, Switzerland
     index: 1
-  - name: Second Affiliation
+  - name: Micelio, Belgium
     index: 2
-  - name: Third Affiliation
+  - name: WESO Lab, University of Oviedo, Spain
     index: 3
 date: 30 June 2023
 cito-bibliography: paper.bib
@@ -38,7 +38,7 @@ authors_short: Deepak R. Unni \emph{et al.}
 
 # Background
 
-[LinkML](https://linkml.io) is a data modeling language that can be used to describe the structure and semantics of data from a specific domain. LinkML lets you manage various levels of semantic expressivity, depending on the use-case at hand. As a result, data models expressed in LinkML can be utilized with various (relational and non-relational) data stores.
+[LinkML](https://linkml.io) (Moxon et al.) is a data modeling language that can be used to describe the structure and semantics of data from a specific domain. LinkML lets you manage various levels of semantic expressivity, depending on the use-case at hand. As a result, data models expressed in LinkML can be utilized with various (relational and non-relational) data stores.
 
 There are two parts to the LinkML ecosystem:
 - **the modeling language:** a vocabulary that can be used to define data models
@@ -135,6 +135,4 @@ We would like to thank the fellow participants at BioHackathon 2023 for their co
 
 ## References
 
-1. CEUR publication on LinkML
-
-
+1. Moxon, S., Solbrig, H., Unni, D., Jiao, D., Bruskiewich, R., Balhoff, J., Vaidya, G., Duncan, W., Hegde, H., Miller, M., Brush, M., Harris, N., Haendel, M., & Mungall, C. (2021). The Linked Data Modeling Language (LinkML): A General-Purpose Data Modeling Framework Grounded in Machine-Readable Semantics. CEUR Workshop Proceedings, 3073, 148-151.
