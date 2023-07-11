@@ -109,9 +109,6 @@ There can be additional methods in the Validator class but these may or may not 
 
 The Validator class defines a set of default plugins for various input formats to make it easy for users to use the Validator. But these defaults can be modified at runtime.
 
-
-![Caption for BioHackrXiv logo figure](./biohackrxiv.png)
-
 # Future work
 
 The work described in this report is a start to the redesign of the linkml validation tool. As a first pass, the design highlighted above yields good promising outcomes and provides a foundation to build a flexible and configurable validation framework in linkml.
@@ -122,7 +119,7 @@ Moving forward we would like to achieve the following:
 - **Add support for commonly used validation scenarios:** This ensures that commonly used validation scenarios are supported via the CLI and sufficient examples are provided via documentation
 - **Finalize and document the flexible aspects of the validator:** This ensures that the user is aware of the various ways they can tweak and configure the new validation tool such that they can accommodate their validation scenarios
 - **Define a common API specification to invoke the validator:** This ensures that other tools, like the new shex-rs validator, can follow the same API specification and thus provide a common interface for users
-- **Focus on scalability** This ensures that the validation can be performed on large input data in a scalable manner
+- **Focus on scalability:** This ensures that the validation can be performed on large input data in a scalable manner
 
 
 # Discussion
