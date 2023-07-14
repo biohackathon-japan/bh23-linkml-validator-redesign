@@ -61,15 +61,9 @@ Following the aforementioned design principles will ensure flexibility and susta
 
 ## Redesign of the Validation
 
-We approach the redesign of the existing LinkML validation tool by implementing the following components:
+We approach the redesign of the existing LinkML validation tool by implementing the following components: Models, Parsers, Validation Plugins, and Validator. The design of these components are highlighted in the following sections and how these components interact are captured in Figure 1.
 
-- Models
-- Parsers
-- Validation Plugins
-- Validator
-
-
-![Design](./design.png)
+![Redesign of the validator with its components](./design.png)
 
 
 ### Models
