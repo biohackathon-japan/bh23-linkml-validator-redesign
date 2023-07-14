@@ -41,6 +41,7 @@ authors_short: Deepak R. Unni \emph{et al.}
 [LinkML](https://linkml.io) (Moxon et al.) is a data modeling language that can be used to describe the structure and semantics of data from a specific domain. LinkML lets you manage various levels of semantic expressivity, depending on the use-case at hand. As a result, data models expressed in LinkML can be utilized with various (relational and non-relational) data stores.
 
 There are two parts to the LinkML ecosystem:
+
 - **the modeling language:** a vocabulary that can be used to define data models
 - **the tooling:** a suite of tools for generating technology-specific artifacts from data models
 
