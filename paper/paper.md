@@ -1,6 +1,6 @@
 ---
-title: 'BioHackJP 2023 Report R4: Redesign of the validation framework in LinkML'
-title_short: 'BioHackJP 2023 LinkML Validator Redesign'
+title: 'Redesign of the validation framework in LinkML'
+title_short: 'LinkML Validator Redesign'
 tags:
   - Linked Data
   - Link modeling language
